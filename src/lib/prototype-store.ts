@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useSyncExternalStore } from "react";
 import type { PrototypePersistedState, UserPreferences } from "@/types/prototype";
 
@@ -7,6 +8,10 @@ const STORAGE_KEY = "volt-deals-prototype/v3";
 const STORAGE_EVENT = "volt-deals-storage-updated";
 const DEMO_START_POINTS = 24;
 const DEMO_START_STREAK = 7;
+const FALLBACK_SESSION_ID = "boot-session";
+
+let hasBootstrappedClientState = false;
+let cachedPrototypeState: PrototypePersistedState | null = null;
 
 function hashSeed(input: string) {
   let hash = 0;
@@ -71,6 +76,33 @@ export function buildDefaultPrototypeState(): PrototypePersistedState {
   };
 }
 
+function buildHydrationSafeState(): PrototypePersistedState {
+  return {
+    sessionId: FALLBACK_SESSION_ID,
+    points: DEMO_START_POINTS,
+    streak: DEMO_START_STREAK,
+    lastViewDate: "",
+    savedIds: [],
+    hotVotedIds: [],
+    viewedIds: [],
+    experimentVariant: "momentum",
+    analyticsEvents: [],
+    installDismissedAt: null,
+    installedAt: null,
+    lastSyncedAt: null,
+    preferences: buildDefaultPreferences(),
+  };
+}
+
+function getCachedPrototypeState() {
+  if (cachedPrototypeState) {
+    return cachedPrototypeState;
+  }
+
+  cachedPrototypeState = buildHydrationSafeState();
+  return cachedPrototypeState;
+}
+
 function uniqueIds(values: number[]) {
   return [...new Set(values)].filter((value) => Number.isFinite(value));
 }
@@ -104,21 +136,7 @@ function normalizeState(
 }
 
 export function readPrototypeState() {
-  if (typeof window === "undefined") {
-    return buildDefaultPrototypeState();
-  }
-
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-
-    if (!raw) {
-      return buildDefaultPrototypeState();
-    }
-
-    return normalizeState(JSON.parse(raw) as PrototypePersistedState);
-  } catch {
-    return buildDefaultPrototypeState();
-  }
+  return getCachedPrototypeState();
 }
 
 function emitStateChange() {
@@ -129,7 +147,35 @@ function emitStateChange() {
   window.dispatchEvent(new Event(STORAGE_EVENT));
 }
 
+function bootstrapPrototypeState() {
+  if (typeof window === "undefined" || hasBootstrappedClientState) {
+    return;
+  }
+
+  hasBootstrappedClientState = true;
+
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+
+    if (!raw) {
+      writePrototypeState(normalizeState(buildDefaultPrototypeState()));
+      return;
+    }
+
+    const normalized = normalizeState(JSON.parse(raw) as PrototypePersistedState);
+    cachedPrototypeState = normalized;
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
+  } catch {
+    writePrototypeState(normalizeState(buildDefaultPrototypeState()));
+    return;
+  }
+
+  emitStateChange();
+}
+
 export function writePrototypeState(nextState: PrototypePersistedState) {
+  cachedPrototypeState = nextState;
+
   if (typeof window === "undefined") {
     return nextState;
   }
@@ -159,7 +205,18 @@ function subscribe(callback: () => void) {
     return () => undefined;
   }
 
-  const handleChange = () => callback();
+  const handleChange = () => {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      cachedPrototypeState = raw
+        ? normalizeState(JSON.parse(raw) as PrototypePersistedState)
+        : normalizeState(buildDefaultPrototypeState());
+    } catch {
+      cachedPrototypeState = normalizeState(buildDefaultPrototypeState());
+    }
+
+    callback();
+  };
 
   window.addEventListener("storage", handleChange);
   window.addEventListener(STORAGE_EVENT, handleChange);
@@ -171,5 +228,11 @@ function subscribe(callback: () => void) {
 }
 
 export function usePrototypeState() {
-  return useSyncExternalStore(subscribe, readPrototypeState, buildDefaultPrototypeState);
+  const state = useSyncExternalStore(subscribe, readPrototypeState, getCachedPrototypeState);
+
+  useEffect(() => {
+    bootstrapPrototypeState();
+  }, []);
+
+  return state;
 }
