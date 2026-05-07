@@ -1,4 +1,4 @@
-const CACHE_NAME = "volt-deals-v3";
+const CACHE_NAME = "volt-deals-v4";
 const SHELL_URL = "/";
 const OFFLINE_URL = "/offline";
 const PRECACHE_URLS = [SHELL_URL, OFFLINE_URL, "/manifest.webmanifest"];
@@ -44,6 +44,10 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
+          if (!response.ok) {
+            return response;
+          }
+
           const responseClone = response.clone();
 
           caches.open(CACHE_NAME).then((cache) => {
@@ -87,8 +91,7 @@ self.addEventListener("fetch", (event) => {
           }
 
           return response;
-        })
-        .catch(() => caches.match(OFFLINE_URL));
+        });
     }),
   );
 });
