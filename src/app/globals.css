@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+
+  --color-bg: #07070a;
+  --color-card: #10131c;
+  --color-lime: #d7ff57;
+  --color-blue: #3aa7ff;
+  --color-orange: #ff7a18;
+  --color-muted: #a8b2c6;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #07070a;
+}
+
+body {
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at top, rgba(58, 167, 255, 0.18), transparent 28%),
+    radial-gradient(circle at 80% 18%, rgba(215, 255, 87, 0.12), transparent 22%),
+    radial-gradient(circle at 50% 85%, rgba(255, 122, 24, 0.14), transparent 26%),
+    #07070a;
+}
+
+::selection {
+  background: rgba(215, 255, 87, 0.26);
+  color: #fff;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@layer utilities {
+  .glass-panel {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)),
+      rgba(8, 10, 17, 0.86);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .ambient-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .text-gradient {
+    background: linear-gradient(120deg, #ffffff 0%, #c9d8ff 45%, #d7ff57 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .reward-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reward-shimmer::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.08) 30%,
+      rgba(255, 255, 255, 0.2) 48%,
+      transparent 70%
+    );
+    transform: translateX(-120%);
+    animation: shimmer 3.8s linear infinite;
+    content: "";
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes shimmer {
+  from {
+    transform: translateX(-120%);
+  }
+
+  to {
+    transform: translateX(120%);
+  }
+}
