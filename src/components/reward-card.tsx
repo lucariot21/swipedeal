@@ -31,16 +31,16 @@ export function RewardCard({
   return (
     <div
       className={cn(
-        "relative w-full overflow-hidden rounded-[30px] border p-4 text-left",
+        "relative w-full overflow-hidden rounded-[24px] border p-4 text-left",
         unlocked
-          ? "reward-shimmer border-white/14 bg-white/8"
-          : "border-white/10 bg-white/[0.04]",
+          ? "reward-shimmer border-white/10 bg-white/[0.05]"
+          : "border-white/8 bg-white/[0.03]",
       )}
     >
       <div
         className="absolute inset-0 opacity-70"
         style={{
-          background: `radial-gradient(circle at top, ${reward.accent}26, transparent 34%), radial-gradient(circle at 78% 82%, ${reward.glow}20, transparent 22%)`,
+          background: `radial-gradient(circle at top, ${reward.accent}18, transparent 28%), radial-gradient(circle at 78% 82%, ${reward.glow}12, transparent 18%)`,
         }}
       />
       <div className="relative z-10">
@@ -55,11 +55,11 @@ export function RewardCard({
             <p className="mt-2 text-sm leading-6 text-white/66">{reward.subtitle}</p>
           </div>
           <div
-            className={cn(
-              "flex h-12 w-12 items-center justify-center rounded-[18px] border",
-              unlocked ? "border-lime/35 bg-lime/12" : "border-white/10 bg-white/8",
-            )}
-          >
+              className={cn(
+                "flex h-12 w-12 items-center justify-center rounded-[18px] border",
+              unlocked ? "border-lime/24 bg-lime/10" : "border-white/8 bg-white/[0.04]",
+              )}
+            >
             {unlocked ? (
               <Sparkles className="h-5 w-5 text-lime" />
             ) : (
@@ -79,7 +79,7 @@ export function RewardCard({
         </div>
         <div className="mt-4 flex gap-3">
           <button
-            className="flex-1 rounded-[18px] bg-white/8 px-4 py-3 text-sm font-medium text-white/78"
+            className="flex-1 rounded-[16px] bg-white/[0.06] px-4 py-3 text-sm font-medium text-white/78"
             onClick={onInspect}
             type="button"
           >
@@ -87,7 +87,7 @@ export function RewardCard({
           </button>
           {linkedDeal ? (
             <button
-              className="flex-1 rounded-[18px] bg-[linear-gradient(120deg,#D7FF57_0%,#3AA7FF_100%)] px-4 py-3 text-sm font-semibold text-black"
+              className="flex-1 rounded-[16px] bg-[linear-gradient(120deg,#d7ff57_0%,#bff56a_100%)] px-4 py-3 text-sm font-semibold text-black"
               onClick={() => onWatchDeal(linkedDeal.id)}
               type="button"
             >

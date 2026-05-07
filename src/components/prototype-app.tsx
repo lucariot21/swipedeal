@@ -2,10 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  Crown,
-  Download,
   SlidersHorizontal,
-  Sparkles,
   WifiOff,
   Zap,
 } from "lucide-react";
@@ -686,66 +683,54 @@ export function PrototypeApp({ initialDeals, dataSource }: PrototypeAppProps) {
 
   return (
     <PhoneFrame>
-      <div className="relative h-full overflow-hidden">
+      <div className="relative flex h-full flex-col overflow-hidden">
         <ServiceWorkerRegistration />
-        <div className="ambient-grid absolute inset-0 opacity-25" />
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top,rgba(58,167,255,0.22),transparent_44%)]" />
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-64 bg-[radial-gradient(circle_at_bottom,rgba(255,122,24,0.12),transparent_50%)]" />
+        <div className="ambient-grid pointer-events-none absolute inset-0 opacity-[0.16]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(circle_at_top,rgba(58,167,255,0.12),transparent_58%)]" />
 
-        <div className="absolute inset-x-0 top-0 z-20 px-4 pt-[max(env(safe-area-inset-top),1rem)]">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-[18px] border border-white/10 bg-[linear-gradient(145deg,rgba(215,255,87,0.18),rgba(58,167,255,0.24))] shadow-[0_0_28px_rgba(58,167,255,0.2)]">
-                <Zap className="h-5 w-5 text-lime" />
+        <div className="relative z-20 shrink-0 border-b border-white/8 bg-black/22 px-4 pb-2.5 pt-[max(env(safe-area-inset-top),0.8rem)] backdrop-blur-xl">
+          <div className="flex items-center justify-between gap-3 overflow-hidden">
+            <div className="flex min-w-0 items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-[15px] border border-white/8 bg-white/[0.04]">
+                <Zap className="h-4.5 w-4.5 text-lime" />
               </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.34em] text-white/38">Volt Deals</p>
-                <p className="font-display text-[22px] font-semibold text-white">Pitch Feed</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <button
-                className="flex h-11 w-11 items-center justify-center rounded-[18px] border border-white/10 bg-white/8 text-white/80"
-                onClick={() => setIsPreferencesOpen(true)}
-                type="button"
-              >
-                <SlidersHorizontal className="h-4.5 w-4.5" />
-              </button>
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-3 py-2 text-sm text-white/80">
-                {persistedState.installedAt ? (
-                  <>
-                    <Download className="h-4 w-4 text-lime" />
-                    <span>Installed PWA</span>
-                  </>
-                ) : (
-                  <>
-                    <Crown className="h-4 w-4 text-orange" />
-                    <span>Founders demo</span>
-                  </>
-                )}
+              <div className="min-w-0">
+                <p className="text-[10px] uppercase tracking-[0.28em] text-white/38">Volt Deals</p>
+                <p className="truncate font-display text-[18px] font-semibold text-white">
+                  Swipe Feed
+                </p>
               </div>
             </div>
+            <button
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/8 bg-white/[0.04] text-white/76"
+              onClick={() => setIsPreferencesOpen(true)}
+              type="button"
+            >
+              <SlidersHorizontal className="h-4 w-4" />
+            </button>
           </div>
 
           {isOffline ? (
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-orange/18 bg-orange/10 px-3 py-2 text-xs text-orange">
+            <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-orange/18 bg-orange/10 px-3 py-1.5 text-[11px] text-orange">
               <WifiOff className="h-4 w-4" />
-              <span>Offline shell active - local state and cached screens remain available.</span>
+              <span>Offline shell active.</span>
             </div>
           ) : null}
 
-          <PointsCounter
-            nextReward={nextReward}
-            points={persistedState.points}
-            pulseKey={pulseKey}
-            streak={persistedState.streak}
-          />
+          <div className="mt-2.5">
+            <PointsCounter
+              nextReward={nextReward}
+              points={persistedState.points}
+              pulseKey={pulseKey}
+              streak={persistedState.streak}
+            />
+          </div>
         </div>
 
-        <div className="absolute inset-x-0 bottom-[88px] top-[166px]">
+        <div className="relative z-10 min-h-0 flex-1">
           <AnimatePresence initial={false} mode="wait">
             {activeTab === "feed" ? (
-              <motion.div className="absolute inset-0" key="feed" {...screenTransition}>
+              <motion.div className="h-full" key="feed" {...screenTransition}>
                 <FeedScreen
                   activeDealId={activeDealId}
                   campaign={currentCampaign?.targetTab === "feed" ? currentCampaign : null}
@@ -756,18 +741,16 @@ export function PrototypeApp({ initialDeals, dataSource }: PrototypeAppProps) {
                   hotVotedIds={persistedState.hotVotedIds}
                   onActiveDealChange={handleActiveDealChange}
                   onHotVoteDeal={toggleHotVote}
-                  onOpenCampaign={() => openCampaign(currentCampaign)}
                   onOpenDeal={openDeal}
                   onSaveDeal={toggleSavedDeal}
                   onShareDeal={shareDeal}
-                  preferences={persistedState.preferences}
                   savedIds={persistedState.savedIds}
                 />
               </motion.div>
             ) : null}
 
             {activeTab === "trending" ? (
-              <motion.div className="absolute inset-0" key="trending" {...screenTransition}>
+              <motion.div className="h-full" key="trending" {...screenTransition}>
                 <TrendingScreen
                   campaign={currentCampaign?.targetTab === "trending" ? currentCampaign : null}
                   deals={personalizedDeals}
@@ -778,7 +761,7 @@ export function PrototypeApp({ initialDeals, dataSource }: PrototypeAppProps) {
             ) : null}
 
             {activeTab === "rewards" ? (
-              <motion.div className="absolute inset-0" key="rewards" {...screenTransition}>
+              <motion.div className="h-full" key="rewards" {...screenTransition}>
                 <RewardsScreen
                   campaign={currentCampaign?.targetTab === "rewards" ? currentCampaign : null}
                   linkedDeals={rewardLinkedDeals}
@@ -792,7 +775,7 @@ export function PrototypeApp({ initialDeals, dataSource }: PrototypeAppProps) {
             ) : null}
 
             {activeTab === "profile" ? (
-              <motion.div className="absolute inset-0" key="profile" {...screenTransition}>
+              <motion.div className="h-full" key="profile" {...screenTransition}>
                 <ProfileScreen
                   analyticsSummary={analyticsSummary}
                   deals={savedDeals.length > 0 ? savedDeals : personalizedDeals}
@@ -815,12 +798,8 @@ export function PrototypeApp({ initialDeals, dataSource }: PrototypeAppProps) {
           </AnimatePresence>
         </div>
 
-        <div className="pointer-events-none absolute right-4 top-[138px] z-20 hidden items-center gap-2 rounded-full border border-white/10 bg-black/24 px-3 py-2 text-xs text-white/58 md:flex">
-          <Sparkles className="h-3.5 w-3.5 text-lime" />
-          <span>Personalized order adapts as you interact and syncs to the local API.</span>
-        </div>
-
-        {remoteConfig.experiments.installPromptEnabled ? (
+        {remoteConfig.experiments.installPromptEnabled &&
+        process.env.NEXT_PUBLIC_ENABLE_PWA === "1" ? (
           <InstallPrompt
             dismissedAt={persistedState.installDismissedAt}
             installedAt={persistedState.installedAt}
@@ -831,11 +810,13 @@ export function PrototypeApp({ initialDeals, dataSource }: PrototypeAppProps) {
           />
         ) : null}
 
-        <BottomNav
-          activeTab={activeTab}
-          onChange={changeTab}
-          unlockedRewardsCount={unlockedRewards.length}
-        />
+        <div className="relative z-20 shrink-0 border-t border-white/8 bg-black/18 px-3 pb-[max(env(safe-area-inset-bottom),0.9rem)] pt-3 backdrop-blur-xl">
+          <BottomNav
+            activeTab={activeTab}
+            onChange={changeTab}
+            unlockedRewardsCount={unlockedRewards.length}
+          />
+        </div>
 
         <PreferencesSheet
           availableCategories={availableCategories}

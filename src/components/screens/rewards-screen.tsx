@@ -36,23 +36,23 @@ export function RewardsScreen({
         </div>
       ) : null}
 
-      <div className="rounded-[32px] border border-white/10 bg-[linear-gradient(145deg,rgba(215,255,87,0.12),rgba(58,167,255,0.1)_44%,rgba(7,7,10,0.96)_100%)] p-5">
+      <div className="glass-panel rounded-[26px] p-5">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-3 py-1.5 text-[11px] uppercase tracking-[0.24em] text-white/60">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/[0.04] px-3 py-1.5 text-[11px] uppercase tracking-[0.22em] text-white/60">
               <Gift className="h-3.5 w-3.5 text-lime" />
               Reward ladder
             </div>
-            <h2 className="mt-4 font-display text-[32px] leading-none font-semibold text-white">
-              Premium incentives without fake urgency.
+            <h2 className="mt-4 font-display text-[30px] leading-none font-semibold text-white">
+              Rewards that feel clear, not manipulative.
             </h2>
           </div>
-          <div className="rounded-[24px] border border-white/10 bg-white/8 px-4 py-3 text-center">
+          <div className="rounded-[20px] border border-white/8 bg-white/[0.04] px-4 py-3 text-center">
             <p className="text-[10px] uppercase tracking-[0.24em] text-white/42">Unlocked</p>
             <p className="mt-2 font-display text-3xl font-semibold text-lime">{unlockedCount}</p>
           </div>
         </div>
-        <div className="mt-5 flex items-start gap-3 rounded-[24px] border border-white/10 bg-black/20 p-4 text-sm leading-6 text-white/68">
+        <div className="mt-5 flex items-start gap-3 rounded-[20px] border border-white/8 bg-black/20 p-4 text-sm leading-6 text-white/62">
           <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-blue" />
           <p>
             Rewards are simulated on purpose. The loop is visible, the sponsorship is clear,

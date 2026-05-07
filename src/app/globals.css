@@ -28,10 +28,10 @@ body {
   min-height: 100dvh;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at top, rgba(58, 167, 255, 0.18), transparent 28%),
-    radial-gradient(circle at 80% 18%, rgba(215, 255, 87, 0.12), transparent 22%),
-    radial-gradient(circle at 50% 85%, rgba(255, 122, 24, 0.14), transparent 26%),
+    radial-gradient(circle at top, rgba(58, 167, 255, 0.05), transparent 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 22%),
     #07070a;
+  color: #fff;
 }
 
 ::selection {
@@ -47,18 +47,19 @@ a {
 @layer utilities {
   .glass-panel {
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)),
-      rgba(8, 10, 17, 0.86);
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015)),
+      rgba(10, 12, 18, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
   }
 
   .ambient-grid {
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-    background-size: 48px 48px;
+      linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+    background-size: 64px 64px;
   }
 
   .text-gradient {

@@ -6,8 +6,8 @@ import type { PrototypePersistedState, UserPreferences } from "@/types/prototype
 
 const STORAGE_KEY = "volt-deals-prototype/v3";
 const STORAGE_EVENT = "volt-deals-storage-updated";
-const DEMO_START_POINTS = 24;
-const DEMO_START_STREAK = 7;
+const DEMO_START_POINTS = 12;
+const DEMO_START_STREAK = 3;
 const FALLBACK_SESSION_ID = "boot-session";
 
 let hasBootstrappedClientState = false;

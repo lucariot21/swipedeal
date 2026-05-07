@@ -28,7 +28,7 @@ export function BottomNav({
   unlockedRewardsCount,
 }: BottomNavProps) {
   return (
-    <div className="glass-panel absolute inset-x-3 bottom-3 z-30 rounded-[28px] px-2 py-2">
+    <div className="glass-panel rounded-[24px] px-2 py-2">
       <div className="grid grid-cols-4 gap-1">
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -37,7 +37,7 @@ export function BottomNav({
           return (
             <button
               className={cn(
-                "relative flex flex-col items-center gap-1 rounded-[22px] px-3 py-3 text-xs text-white/52 transition-colors",
+                "relative flex flex-col items-center gap-1 rounded-[18px] px-3 py-2.5 text-[11px] text-white/46 transition-colors",
                 isActive && "text-white",
               )}
               key={tab.id}
@@ -46,7 +46,7 @@ export function BottomNav({
             >
               {isActive ? (
                 <motion.div
-                  className="absolute inset-0 rounded-[22px] bg-white/10"
+                  className="absolute inset-0 rounded-[18px] bg-white/8"
                   layoutId="nav-pill"
                   transition={{ type: "spring", duration: 0.45 }}
                 />

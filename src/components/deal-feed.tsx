@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect, useEffectEvent, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import { ChevronsDown } from "lucide-react";
+import { useEffect, useEffectEvent, useRef } from "react";
 import { DealCard } from "@/components/deal-card";
 import type { Deal } from "@/types/deal";
 import type { CTAExperimentVariant } from "@/types/prototype";
@@ -36,7 +34,6 @@ export function DealFeed({
 }: DealFeedProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const lastActiveIdRef = useRef<number | null>(null);
-  const [hasScrolled, setHasScrolled] = useState(false);
 
   const syncActiveDeal = useEffectEvent(() => {
     const container = containerRef.current;
@@ -56,7 +53,6 @@ export function DealFeed({
     }
 
     lastActiveIdRef.current = nextDealId;
-    setHasScrolled(nextIndex > 0);
     onActiveDealChange(nextDealId);
   });
 
@@ -105,12 +101,12 @@ export function DealFeed({
   return (
     <div className="relative h-full">
       <div
-        className="no-scrollbar h-full snap-y snap-mandatory overflow-y-auto px-4"
+        className="no-scrollbar h-full snap-y snap-mandatory overflow-y-auto"
         ref={containerRef}
       >
         {deals.map((deal) => (
           <section
-            className="flex h-full snap-start items-stretch py-2"
+            className="flex h-full snap-start items-stretch pb-4"
             id={`deal-${deal.id}`}
             key={deal.id}
           >
@@ -128,17 +124,6 @@ export function DealFeed({
           </section>
         ))}
       </div>
-
-      {!hasScrolled && (
-        <motion.div
-          animate={{ opacity: [0.4, 1, 0.4], y: [0, 8, 0] }}
-          className="pointer-events-none absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/10 bg-black/34 px-3 py-2 text-xs text-white/72 backdrop-blur-xl"
-          transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-        >
-          <ChevronsDown className="h-4 w-4 text-lime" />
-          <span>Swipe for the next full-screen deal</span>
-        </motion.div>
-      )}
     </div>
   );
 }

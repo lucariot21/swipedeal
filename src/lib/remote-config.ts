@@ -2,7 +2,7 @@ import type { RemoteConfig } from "@/types/prototype";
 
 export const defaultRemoteConfig: RemoteConfig = {
   experiments: {
-    installPromptEnabled: true,
+    installPromptEnabled: false,
     ctaOpenMode: "new-tab",
     outboundBasePath: "/out",
   },

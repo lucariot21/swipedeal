@@ -11,7 +11,7 @@ Premium mobile-first Next.js prototype for a vertical full-screen deal feed. The
 - DummyJSON product ingestion with curated mapping and local mock fallback
 - Personalized ranking based on views, saves, hot votes and CTA clicks
 - Local event analytics and CTA experiment tracking
-- PWA install prompt, manifest, icons and offline shell service worker
+- Manifest, icons and optional offline/PWA shell support
 - Local persistence for points, saves, hot votes, viewed deals and experiment state
 - Lightweight local analytics API with server-side event aggregation
 - Preference sheet for shopping mode, price bias, category pins and sponsor affinity
@@ -21,7 +21,7 @@ Premium mobile-first Next.js prototype for a vertical full-screen deal feed. The
 
 ## Assumptions
 
-- Pitch mode starts at `24` points so the first reward can unlock almost immediately during a demo.
+- Pitch mode starts at `12` points so the first session still feels alive without triggering a reward modal on first paint.
 - Prices are shown in `EUR` formatting to fit the intended presentation context, while raw numeric values still come from DummyJSON.
 - The live API data is visually curated into categories that fit the premium commerce pitch better.
 - CTA actions are simulated only. No payment, no login and no real reward redemption flow exists.
@@ -29,6 +29,7 @@ Premium mobile-first Next.js prototype for a vertical full-screen deal feed. The
 - The CTA experiment is intentionally deterministic per browser/device profile to keep the variant stable in a local prototype.
 - The prototype backend uses `node:sqlite`, so a current Node.js version with built-in SQLite support is expected.
 - The config API is a local simulation layer and can be replaced by a real remote-config system later.
+- The service worker and install prompt are disabled by default in the shareable demo build to avoid stale-cache issues during Vercel reviews.
 
 ## Installation
 
@@ -68,16 +69,15 @@ npm run start
 - Use a viewport close to `390 x 844`
 - Scroll the feed in full-screen mode to test snap behavior, point gains and reward unlocks
 - Save, hot-vote and open deals to see the personalized ranking and profile analytics update
-- Trigger Chrome's install flow to test the PWA prompt and home-screen behavior
-- Toggle offline mode in DevTools to test the cached shell and `/offline` fallback
 - Open CTA handoffs and share actions to verify the outbound demo routes and Web Share fallback
+- If you explicitly enable PWA mode, then also test install flow and `/offline` fallback behavior
 
 ## Persistence and analytics
 
 - Local app state persists across refreshes:
   points, streak, saves, hot votes, viewed deals, install state, experiment variant and user preferences
 - Interaction events are tracked locally:
-  deal views, saves, hot votes, shares, CTA clicks, reward unlocks, deep-link jumps and PWA install events
+  deal views, saves, hot votes, shares, CTA clicks, reward unlocks, deep-link jumps and optional PWA install events
 - The profile screen contains a small conversion lab panel to support pitch conversations around funnel hypotheses
 - Local development stores synced analytics events, remote config and profile snapshots in `data/volt-deals.sqlite`
 - Vercel deployments automatically switch to an in-memory demo backend so the prototype remains shareable without depending on unsupported persistent SQLite storage
@@ -103,9 +103,10 @@ npm run start
 
 - A web manifest is exposed at `/manifest.webmanifest`
 - Dynamic app icons are generated via Next.js metadata routes
-- A lightweight service worker caches the shell for stronger demo resilience
+- The shareable demo build keeps the service worker unregistered by default and actively clears older `volt-deals-*` caches for stability
+- Set `NEXT_PUBLIC_ENABLE_PWA=1` if you want to re-enable the service worker and install prompt locally
+- When PWA mode is enabled, navigation failures fall back to `/offline`
 - Best tested in Chrome or Edge where `beforeinstallprompt` is available
-- Navigation failures fall back to `/offline`
 - Demo affiliate handoffs open under `/out/[dealId]`
 
 ## Deployment

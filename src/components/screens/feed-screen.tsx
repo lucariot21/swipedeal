@@ -1,12 +1,7 @@
 import { Layers3 } from "lucide-react";
-import { CampaignBanner } from "@/components/campaign-banner";
 import { DealFeed } from "@/components/deal-feed";
 import type { DataSource, Deal } from "@/types/deal";
-import type {
-  CTAExperimentVariant,
-  SponsoredCampaign,
-  UserPreferences,
-} from "@/types/prototype";
+import type { CTAExperimentVariant, SponsoredCampaign } from "@/types/prototype";
 
 type FeedScreenProps = {
   deals: Deal[];
@@ -16,41 +11,13 @@ type FeedScreenProps = {
   savedIds: number[];
   hotVotedIds: number[];
   ctaVariant: CTAExperimentVariant;
-  preferences: UserPreferences;
   campaign: SponsoredCampaign | null;
-  onOpenCampaign: () => void;
   onActiveDealChange: (dealId: number) => void;
   onSaveDeal: (dealId: number) => void;
   onShareDeal: (dealId: number) => void;
   onHotVoteDeal: (dealId: number) => void;
   onOpenDeal: (dealId: number) => void;
 };
-
-function buildPreferenceLabel(preferences: UserPreferences) {
-  const parts: string[] = [];
-
-  if (preferences.shoppingMode !== "balanced") {
-    parts.push(preferences.shoppingMode === "deals-first" ? "Deals first" : "Premium first");
-  }
-
-  if (preferences.pricePreference !== "all") {
-    parts.push(preferences.pricePreference === "budget" ? "Budget bias" : "Premium bias");
-  }
-
-  if (preferences.favoriteCategories.length > 0) {
-    parts.push(preferences.favoriteCategories[0]);
-  }
-
-  if (preferences.favoriteSponsors.length > 0) {
-    parts.push(preferences.favoriteSponsors[0]);
-  }
-
-  if (preferences.sponsoredOnly) {
-    parts.push("Sponsored focus");
-  }
-
-  return parts.length > 0 ? parts.join(" - ") : "Balanced discovery";
-}
 
 export function FeedScreen({
   deals,
@@ -60,44 +27,27 @@ export function FeedScreen({
   savedIds,
   hotVotedIds,
   ctaVariant,
-  preferences,
   campaign,
-  onOpenCampaign,
   onActiveDealChange,
   onSaveDeal,
   onShareDeal,
   onHotVoteDeal,
   onOpenDeal,
 }: FeedScreenProps) {
+  const statusLabel =
+    dataSource === "dummyjson"
+      ? `${deals.length} curated deals live`
+      : "Running curated local demo deals";
+
   return (
-    <div className="relative h-full">
-      <div className="px-4 pb-2 pt-1">
-        {campaign ? (
-          <div className="mb-3">
-            <CampaignBanner campaign={campaign} onPrimaryAction={onOpenCampaign} />
-          </div>
-        ) : null}
-        <div className="flex flex-wrap gap-2">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/6 px-3 py-2 text-[11px] text-white/66">
-            <Layers3 className="h-3.5 w-3.5 text-blue" />
-            <span>
-              {dataSource === "dummyjson"
-                ? `Live curated from DummyJSON - ${deals.length} premium-fit deals`
-                : "DummyJSON unavailable - running polished local mock deals"}
-            </span>
-          </div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-lime/18 bg-lime/10 px-3 py-2 text-[11px] text-lime">
-            <span>
-              For-you ranking live - CTA{" "}
-              {ctaVariant === "momentum" ? "Momentum" : "Social Proof"}
-            </span>
-          </div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-3 py-2 text-[11px] text-white/62">
-            <span>{buildPreferenceLabel(preferences)}</span>
-          </div>
-        </div>
+    <div className="flex h-full flex-col px-4 pb-4 pt-4">
+      <div className="mb-3 flex min-w-0 items-center gap-2 px-1 text-[11px] text-white/52">
+        <Layers3 className="h-3.5 w-3.5 shrink-0 text-blue" />
+        <span className="truncate">{statusLabel}</span>
+        {campaign ? <span className="shrink-0 text-white/28">·</span> : null}
+        {campaign ? <span className="truncate">Sponsored by {campaign.sponsor}</span> : null}
       </div>
-      <div className={`absolute inset-x-0 bottom-0 ${campaign ? "top-[178px]" : "top-10"}`}>
+      <div className="min-h-0 flex-1">
         <DealFeed
           activeDealId={activeDealId}
           ctaVariant={ctaVariant}

@@ -94,10 +94,10 @@ export function ProfileScreen({
 
   return (
     <div className="no-scrollbar h-full overflow-y-auto px-4 pb-10">
-      <div className="rounded-[34px] border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04)_44%,rgba(7,7,10,0.96)_100%)] p-5">
+      <div className="glass-panel rounded-[28px] p-5">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-[24px] border border-white/10 bg-[linear-gradient(145deg,rgba(58,167,255,0.24),rgba(215,255,87,0.18))] font-display text-2xl font-semibold text-white">
+            <div className="flex h-16 w-16 items-center justify-center rounded-[22px] border border-white/8 bg-white/[0.04] font-display text-2xl font-semibold text-white">
               V
             </div>
             <div>
@@ -112,35 +112,35 @@ export function ProfileScreen({
               </p>
             </div>
           </div>
-          <div className="rounded-[24px] border border-white/10 bg-white/8 px-4 py-3 text-right">
+          <div className="rounded-[20px] border border-white/8 bg-white/[0.04] px-4 py-3 text-right">
             <p className="text-[10px] uppercase tracking-[0.24em] text-white/42">Points</p>
             <p className="mt-2 font-display text-3xl font-semibold text-lime">{points}</p>
           </div>
         </div>
 
         <div className="mt-5 grid grid-cols-2 gap-3">
-          <div className="rounded-[24px] border border-white/10 bg-white/6 p-4">
+          <div className="rounded-[20px] border border-white/8 bg-white/[0.04] p-4">
             <div className="flex items-center gap-2 text-white/54">
               <Layers2 className="h-4 w-4 text-blue" />
               <span className="text-xs uppercase tracking-[0.24em]">Viewed deals</span>
             </div>
             <p className="mt-3 font-display text-3xl font-semibold text-white">{viewedCount}</p>
           </div>
-          <div className="rounded-[24px] border border-white/10 bg-white/6 p-4">
+          <div className="rounded-[20px] border border-white/8 bg-white/[0.04] p-4">
             <div className="flex items-center gap-2 text-white/54">
               <Bookmark className="h-4 w-4 text-lime" />
               <span className="text-xs uppercase tracking-[0.24em]">Saved deals</span>
             </div>
             <p className="mt-3 font-display text-3xl font-semibold text-white">{savedCount}</p>
           </div>
-          <div className="rounded-[24px] border border-white/10 bg-white/6 p-4">
+          <div className="rounded-[20px] border border-white/8 bg-white/[0.04] p-4">
             <div className="flex items-center gap-2 text-white/54">
               <Flame className="h-4 w-4 text-orange" />
               <span className="text-xs uppercase tracking-[0.24em]">Hot votes</span>
             </div>
             <p className="mt-3 font-display text-3xl font-semibold text-white">{hotVotesCount}</p>
           </div>
-          <div className="rounded-[24px] border border-white/10 bg-white/6 p-4">
+          <div className="rounded-[20px] border border-white/8 bg-white/[0.04] p-4">
             <div className="flex items-center gap-2 text-white/54">
               <Trophy className="h-4 w-4 text-blue" />
               <span className="text-xs uppercase tracking-[0.24em]">Favorite lane</span>
@@ -150,7 +150,7 @@ export function ProfileScreen({
         </div>
       </div>
 
-      <div className="mt-5 rounded-[30px] border border-white/10 bg-white/6 p-5">
+      <div className="mt-5 rounded-[24px] border border-white/8 bg-white/[0.04] p-5">
         <p className="text-[10px] uppercase tracking-[0.28em] text-white/42">Session pulse</p>
         <div className="mt-4 flex items-end justify-between gap-4">
           <div>
@@ -159,7 +159,7 @@ export function ProfileScreen({
               {formatCompactNumber(points * 182)}
             </p>
           </div>
-          <div className="rounded-full border border-white/10 bg-black/20 px-4 py-2 text-sm text-white/68">
+          <div className="rounded-full border border-white/8 bg-black/20 px-4 py-2 text-sm text-white/68">
             Based on profile demo stats
           </div>
         </div>
@@ -191,7 +191,7 @@ export function ProfileScreen({
         </div>
       </div>
 
-      <div className="mt-5 rounded-[30px] border border-white/10 bg-white/6 p-5">
+      <div className="mt-5 rounded-[24px] border border-white/8 bg-white/[0.04] p-5">
         <div className="flex items-center gap-2 text-sm font-medium text-white">
           <SlidersHorizontal className="h-4 w-4 text-blue" />
           Taste profile
@@ -199,7 +199,7 @@ export function ProfileScreen({
         <div className="mt-4 flex flex-wrap gap-2">
           {preferenceSummary.map((entry) => (
             <div
-              className="rounded-full border border-white/10 bg-black/20 px-3 py-2 text-sm text-white/72"
+              className="rounded-full border border-white/8 bg-black/20 px-3 py-2 text-sm text-white/72"
               key={entry}
             >
               {entry}
@@ -214,27 +214,27 @@ export function ProfileScreen({
         ) : null}
       </div>
 
-      <div className="mt-5 rounded-[30px] border border-white/10 bg-white/6 p-5">
+      <div className="mt-5 rounded-[24px] border border-white/8 bg-white/[0.04] p-5">
         <p className="text-[10px] uppercase tracking-[0.28em] text-white/42">Server sync</p>
         {serverProfile ? (
           <div className="mt-4 grid grid-cols-2 gap-3">
-            <div className="rounded-[24px] border border-white/10 bg-black/20 p-4">
+            <div className="rounded-[20px] border border-white/8 bg-black/20 p-4">
               <p className="text-xs uppercase tracking-[0.24em] text-white/42">Server points</p>
               <p className="mt-2 font-display text-3xl font-semibold text-white">
                 {serverProfile.points}
               </p>
             </div>
-            <div className="rounded-[24px] border border-white/10 bg-black/20 p-4">
+            <div className="rounded-[20px] border border-white/8 bg-black/20 p-4">
               <p className="text-xs uppercase tracking-[0.24em] text-white/42">Last sync</p>
               <p className="mt-2 text-sm text-white/74">
                 {lastSyncedAt ? new Date(lastSyncedAt).toLocaleTimeString("de-DE") : "Pending"}
               </p>
             </div>
-            <div className="rounded-[24px] border border-white/10 bg-black/20 p-4">
+            <div className="rounded-[20px] border border-white/8 bg-black/20 p-4">
               <p className="text-xs uppercase tracking-[0.24em] text-white/42">Saved on server</p>
               <p className="mt-2 text-lg font-semibold text-white">{serverProfile.savedCount}</p>
             </div>
-            <div className="rounded-[24px] border border-white/10 bg-black/20 p-4">
+            <div className="rounded-[20px] border border-white/8 bg-black/20 p-4">
               <p className="text-xs uppercase tracking-[0.24em] text-white/42">Session ID</p>
               <p className="mt-2 truncate text-sm text-white/74">{serverProfile.sessionId}</p>
             </div>
@@ -247,7 +247,7 @@ export function ProfileScreen({
       </div>
 
       {featuredDeal ? (
-        <div className="mt-5 rounded-[30px] border border-white/10 bg-[linear-gradient(145deg,rgba(255,122,24,0.12),rgba(58,167,255,0.1)_52%,rgba(7,7,10,0.92)_100%)] p-5">
+        <div className="mt-5 rounded-[24px] border border-white/8 bg-white/[0.04] p-5">
           <p className="text-[10px] uppercase tracking-[0.28em] text-white/42">Best next action</p>
           <div className="mt-3 flex items-end justify-between gap-4">
             <div>
@@ -260,7 +260,7 @@ export function ProfileScreen({
               </p>
             </div>
             <button
-              className="shrink-0 rounded-[20px] bg-[linear-gradient(120deg,#D7FF57_0%,#3AA7FF_100%)] px-4 py-3 text-sm font-semibold text-black"
+              className="shrink-0 rounded-[16px] bg-[linear-gradient(120deg,#d7ff57_0%,#bff56a_100%)] px-4 py-3 text-sm font-semibold text-black"
               onClick={() => onJumpToDeal(featuredDeal.id)}
               type="button"
             >

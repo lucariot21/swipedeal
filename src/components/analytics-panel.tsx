@@ -36,7 +36,7 @@ export function AnalyticsPanel({
     serverSnapshot?.variantPerformance.sort((left, right) => right.ctr - left.ctr)[0] ?? null;
 
   return (
-    <div className="mt-5 rounded-[30px] border border-white/10 bg-white/6 p-5">
+    <div className="mt-5 rounded-[24px] border border-white/8 bg-white/[0.04] p-5">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-[10px] uppercase tracking-[0.28em] text-white/42">Conversion lab</p>
@@ -44,13 +44,13 @@ export function AnalyticsPanel({
             Live experiment telemetry
           </h3>
         </div>
-        <div className="rounded-full border border-white/10 bg-black/20 px-3 py-2 text-xs text-white/72">
+        <div className="rounded-full border border-white/8 bg-black/20 px-3 py-2 text-xs text-white/72">
           CTA Variant: {variantLabelMap[variant]}
         </div>
       </div>
 
       <div className="mt-5 grid grid-cols-2 gap-3">
-        <div className="rounded-[24px] border border-white/10 bg-black/20 p-4">
+        <div className="rounded-[20px] border border-white/8 bg-black/20 p-4">
           <div className="flex items-center gap-2 text-white/54">
             <MousePointerClick className="h-4 w-4 text-lime" />
             <span className="text-xs uppercase tracking-[0.24em]">CTA CTR</span>
@@ -62,7 +62,7 @@ export function AnalyticsPanel({
             {summary.ctaClicks} clicks from {summary.views} deal views
           </p>
         </div>
-        <div className="rounded-[24px] border border-white/10 bg-black/20 p-4">
+        <div className="rounded-[20px] border border-white/8 bg-black/20 p-4">
           <div className="flex items-center gap-2 text-white/54">
             <RadioTower className="h-4 w-4 text-blue" />
             <span className="text-xs uppercase tracking-[0.24em]">Sponsor CTR</span>
@@ -74,7 +74,7 @@ export function AnalyticsPanel({
             {summary.sponsorClicks} sponsor clicks in-session
           </p>
         </div>
-        <div className="rounded-[24px] border border-white/10 bg-black/20 p-4">
+        <div className="rounded-[20px] border border-white/8 bg-black/20 p-4">
           <div className="flex items-center gap-2 text-white/54">
             <Activity className="h-4 w-4 text-orange" />
             <span className="text-xs uppercase tracking-[0.24em]">Intent stack</span>
@@ -86,7 +86,7 @@ export function AnalyticsPanel({
             Saves {summary.saveActions} - Hot {summary.hotActions} - Shares {summary.shareActions}
           </p>
         </div>
-        <div className="rounded-[24px] border border-white/10 bg-black/20 p-4">
+        <div className="rounded-[20px] border border-white/8 bg-black/20 p-4">
           <div className="flex items-center gap-2 text-white/54">
             <BarChart3 className="h-4 w-4 text-lime" />
             <span className="text-xs uppercase tracking-[0.24em]">Best lane</span>
@@ -96,7 +96,7 @@ export function AnalyticsPanel({
         </div>
       </div>
 
-      <div className="mt-5 rounded-[24px] border border-white/10 bg-[linear-gradient(145deg,rgba(58,167,255,0.14),rgba(215,255,87,0.1)_55%,rgba(0,0,0,0.18)_100%)] p-4">
+      <div className="mt-5 rounded-[20px] border border-white/8 bg-white/[0.04] p-4">
         <div className="flex items-center gap-2 text-sm font-medium text-white">
           <ArrowUpRight className="h-4 w-4 text-lime" />
           Hypothesis
@@ -104,7 +104,7 @@ export function AnalyticsPanel({
         <p className="mt-3 text-sm leading-6 text-white/72">{summary.hypothesis}</p>
       </div>
 
-      <div className="mt-5 rounded-[24px] border border-white/10 bg-black/20 p-4">
+      <div className="mt-5 rounded-[20px] border border-white/8 bg-black/20 p-4">
         <div className="flex items-center gap-2 text-sm font-medium text-white">
           <Cloud className="h-4 w-4 text-blue" />
           Server snapshot
@@ -147,13 +147,13 @@ export function AnalyticsPanel({
         <p className="text-[10px] uppercase tracking-[0.28em] text-white/42">Recent events</p>
         <div className="mt-3 space-y-2">
           {summary.recentEvents.length === 0 ? (
-            <div className="rounded-[22px] border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/52">
+            <div className="rounded-[18px] border border-white/8 bg-black/20 px-4 py-3 text-sm text-white/52">
               Scroll and interact with deals to populate the analytics rail.
             </div>
           ) : (
             summary.recentEvents.map((event) => (
               <div
-                className="flex items-center justify-between gap-4 rounded-[22px] border border-white/10 bg-black/20 px-4 py-3 text-sm"
+                className="flex items-center justify-between gap-4 rounded-[18px] border border-white/8 bg-black/20 px-4 py-3 text-sm"
                 key={event.id}
               >
                 <span className="text-white/72">{buildEventLabel(event, deals)}</span>

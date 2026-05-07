@@ -30,29 +30,25 @@ export function TrendingScreen({
         </div>
       ) : null}
 
-      <div className="rounded-[32px] border border-white/10 bg-[linear-gradient(145deg,rgba(58,167,255,0.18),rgba(255,122,24,0.08)_44%,rgba(7,7,10,0.96)_100%)] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.36)]">
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/18 px-3 py-1.5 text-[11px] uppercase tracking-[0.24em] text-white/65">
+      <div className="glass-panel rounded-[26px] p-5">
+        <div className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/[0.04] px-3 py-1.5 text-[11px] uppercase tracking-[0.22em] text-white/58">
           <Flame className="h-3.5 w-3.5 text-orange" />
-          Trending heat
+          Trending
         </div>
-        <h2 className="mt-4 font-display text-[34px] leading-none font-semibold text-white">
-          The deals people are opening right now.
+        <h2 className="mt-4 font-display text-[30px] leading-none font-semibold text-white">
+          What people are opening right now.
         </h2>
-        <p className="mt-3 text-sm leading-6 text-white/66">
-          Built for fast yes-or-no decisions: top score, rising views and premium visual fit
-          surfaced first.
-        </p>
-        <p className="mt-2 text-sm leading-6 text-lime">
-          Ranking adapts to your saves, hot votes, click behavior and stated preferences.
+        <p className="mt-3 text-sm leading-6 text-white/58">
+          Fast shortlist of the strongest deals by score, activity and fit.
         </p>
         <div className="mt-5 grid grid-cols-2 gap-3">
-          <div className="rounded-[24px] border border-white/10 bg-white/8 p-4">
+          <div className="rounded-[20px] border border-white/8 bg-white/[0.04] p-4">
             <p className="text-[10px] uppercase tracking-[0.24em] text-white/45">Heat index</p>
             <p className="mt-2 font-display text-3xl font-semibold text-lime">
               {averageScore.toFixed(1)}
             </p>
           </div>
-          <div className="rounded-[24px] border border-white/10 bg-white/8 p-4">
+          <div className="rounded-[20px] border border-white/8 bg-white/[0.04] p-4">
             <p className="text-[10px] uppercase tracking-[0.24em] text-white/45">Views stacked</p>
             <p className="mt-2 font-display text-3xl font-semibold text-white">
               {formatCompactNumber(totalViews)}
@@ -61,7 +57,7 @@ export function TrendingScreen({
         </div>
       </div>
 
-      <div className="mb-3 mt-5 flex items-center gap-2 text-xs uppercase tracking-[0.26em] text-white/45">
+      <div className="mb-3 mt-5 flex items-center gap-2 text-xs uppercase tracking-[0.22em] text-white/42">
         <Radar className="h-3.5 w-3.5 text-blue" />
         Top deals
       </div>
